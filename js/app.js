@@ -817,7 +817,8 @@ for (pokemon in pokemonList) {
     pokemonList[pokemon] = pokemonList[pokemon].toLowerCase()
 }
 // console.log(pokemonList)
-const pokemonTypes = []
+const pokemonTypes = "normal fire water electric grass ice fighting poison ground flying psychic bug rock ghost dragon dark steel fairy".split(" ")
+console.log(pokemonTypes)
 const pokemonUrl = "https://pokeapi.co/api/v2/pokemon"
 const checkWeakness = (pokemon) => {
     pokemon.type
