@@ -1,7 +1,7 @@
 // console.log("I'm alive!")
 
 // document.querySelector("#start-button").addEventListener()
-const gameMain = {
+const game = {
 	pokemonList: [
 		"Bulbasaur",
 		"Ivysaur",
@@ -813,32 +813,144 @@ const gameMain = {
 		"Meltan",
 		"Melmetal"
 	],
+
 	selectedPokemon: null,
+
 	pokemonTypes: "normal fire water electric grass ice fighting poison ground flying psychic bug rock ghost dragon dark steel fairy".split(" "),
+
 	pokemonDialogueBoxUrl: "https://www.pngfind.com/pngs/m/641-6412603_pokemon-dialog-box-pokemon-text-box-png-transparent.png",
+
 	pokemonUrl: null,
-	getRandomPokemon: function() {
-		this.selectedPokemon = this.pokemonList[
+
+	questionData:[],
+	selectRandomPokemon: function() {
+		 return this.pokemonList[
 			Math.floor(
 				Math.random()*this.pokemonList.length
 			)
 		].toLowerCase()
 	},
-	setPokemonUrl: function() {
-		console.log(this.selectedPokemon)
-		this.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${this.selectedPokemon}`
+
+	setPokemonUrl: function(pokemon) {
+		console.log(pokemon)
+		this.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon}`
 	},
 
+	// fetchRandomPokemon: function(pokemonUrl, index) {
+	// 	fetch(pokemonUrl) 
+	// 	.then( function(responseData) {
+	// 		return responseData.json()
+	// 	})
+	// 	.then( function(jsonData) {
+	// 		questionData[index] = jsonData.value
+	// 	})
+	// },
+
+	getQuestionData: function(pokemonUrl,index) {
+		console.log("index",index)
+		fetch(pokemonUrl) 
+			.then( function(responseData) {
+				return responseData.json()
+			})
+			.then( function(jsonData) {
+				game.questionData[index] = jsonData
+				console.log(jsonData)
+				console.log(game.questionData[index])
+				console.log(game.questionData)
+			})
+	},
+
+	initializeData: function() {
+		this.selectedPokemon = this.selectRandomPokemon()
+		console.log(this.selectedPokemon)
+		
+		this.setPokemonUrl(this.selectedPokemon)
+		console.log(this.pokemonUrl)
+		
+		this.getQuestionData(this.pokemonUrl,0)
+		
+		// return this.questionData[0]
+	},
+
+	renderWhoQuestion: function(dataObject) {
+		// console.log(dataObject)
+		let questionContainer = document.createElement("div")
+		questionContainer.setAttribute("id","question-container")
+		questionContainer.setAttribute("class","")
+		
+		let questionBox = document.createElement("img")
+		questionBox.setAttribute("id","question-box")
+		
+		let question = document.createElement("p")
+		question.innerText = "Who's that Pokemon?!"
+
+		let answersBox = document.createElement("img")
+		answersBox.setAttribute("id","question-box")
+
+		let answers = document.createElement("ul")
+		answers.setAttribute("id", "answers")
+
+		for(let i = 0; i <= 3; i++) {
+			let answer = document.createElement("answer")
+			answer.setAttribute("id", `answer${i}`)
+			answer.setAttribute("value", i)
+		}
+
+	},
+
+	whoIsThatPokemon: function() {
+		let dataPromise = async() => {
+			this.initializeData()
+			return game.questionData[0]
+		}
+		dataPromise()
+		.then (function(questionData) {
+			// console.log(questionData)
+			game.renderWhoQuestion(questionData)
+		})
+	},
+
+	// generateQuestion: function() {
+	// 	if (Math.random>50) {
+	// 		this.whoIsThatPokemon()
+	// 	}
+	// 	else {
+	// 		for( let i = 0; i <= 4)
+	// 	}
+	// }
+
+	gameIsRunning: true,
+	main: function() {
+		// this.generateQuestion()
+		this.whoIsThatPokemon()
+	},
 }
-// gameMain.getRandomPokemon()
-// gameMain.setPokemonUrl(
-// 	gameMain.pokemonList[
-// 		Math.floor(
-// 			Math.random()*gameMain.pokemonList.length
-// 		)
-// 	]
+// console.log(document.querySelector("#start-button"))
+
+// game.selectedPokemon = game.selectRandomPokemon()
+// game.setPokemonUrl(
+// 	game.selectedPokemon
 // )
-// console.log(gameMain.pokemonDialogueBoxUrl)
-// console.log(gameMain.pokemonUrl)
-// console.log(gameMain.pokemonList)
-// console.log(gameMain.pokemonTypes)
+// console.log(game.pokemonDialogueBoxUrl)
+// console.log(game.pokemonUrl)
+// console.log(game.pokemonList)
+// console.log(game.pokemonTypes)
+game.main()
+
+// let c
+// let a = () => {
+// 	fetch(`https://pokeapi.co/api/v2/pokemon/ditto`) 
+// 			.then( function(responseData) {
+// 				return responseData.json()
+// 			})
+// 			.then( function(jsonData) {
+// 				c = jsonData.value
+// 			})
+// }
+// let b = (d) => {
+// 	console.log(d)
+
+// }
+// a()  // undefined
+// b(c) //undefined
+// b(a())  //undefined
