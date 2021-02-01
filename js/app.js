@@ -1,4 +1,4 @@
-console.log("I'm alive!")
+// console.log("I'm alive!")
 // Thank you sindresorhus for this array @ 
 // https://github.com/sindresorhus/pokemon/blob/main/data/en.json
 const pokemonList = [
@@ -818,8 +818,13 @@ for (pokemon in pokemonList) {
 }
 // console.log(pokemonList)
 const pokemonTypes = "normal fire water electric grass ice fighting poison ground flying psychic bug rock ghost dragon dark steel fairy".split(" ")
-console.log(pokemonTypes)
+// console.log(pokemonTypes)
 const pokemonUrl = "https://pokeapi.co/api/v2/pokemon"
-const checkWeakness = (pokemon) => {
-    pokemon.type
+const pokemonDiaologueBoxUrl = "https://www.pngfind.com/pngs/m/641-6412603_pokemon-dialog-box-pokemon-text-box-png-transparent.png"
+// const checkWeakness = (pokemon) => {
+//     pokemon.type
+// }
+
+// document.querySelector("#start-button").addEventListener()
+const gameMain {
 }
