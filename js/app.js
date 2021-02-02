@@ -894,7 +894,8 @@ const game = {
 		
 		let questionImage = document.createElement("img")
 		questionImage.setAttribute("href",`${questionDataArray[0].sprites.back_default}`)
-		questionImage.setAttribute("width","100%")
+		questionImage.setAttribute("width","80px")
+		questionImage.setAttribute("height","80px")
 
 		let question = document.createElement("p")
 		question.innerText = "Who's that Pokemon?!"
@@ -932,16 +933,19 @@ const game = {
 			let answersArray = []
 			for(let i = 0; i <= 3; i++) {
 				let answer = document.createElement("li")
-				let answerText = document.createElement("p")
-				let answerImage = document.createElement("img")
-				answerImage.setAttribute("id", "answer-image")
+				// let answerText = document.createElement("p")
+				// let answerImage = document.createElement("img")
+				// answerImage.setAttribute("id", "answer-image")
 				console.log(questionDataArray[i])
-				answerImage.setAttribute("href", `${questionDataArray[i].sprites.front_default}`)
+				// answerImage.setAttribute("href", `${questionDataArray[i].sprites.front_default}`)
 				answer.setAttribute("id", `answer${i}`)
 				answer.setAttribute("value", i)
-				answerText.innerText= game.questionData[i].name
-				answer.appendChild(answerImage)
-				answer.appendChild(answerText)
+				answer.style.listStyleImage = `url(${questionDataArray[i].sprites.front_default})`
+				// answerText.innerText= game.questionData[i].name
+				answer.innerText = game.questionData[i].name
+				answer.addEventListener("click",game.checkAnswer)
+				// answer.appendChild(answerImage)
+				// answer.appendChild(answerText)
 				answers.appendChild(answer)
 				answersArray[i] = answer
 			}
@@ -959,6 +963,15 @@ const game = {
 			console.log(answersContainer)
 		}
 		// console.log(answersContainer)
+	},
+
+	checkAnswer: function(event) {
+		// console.log(event.target)
+		// console.log(event.target.value)
+		if(event.target.value === 0 ) {
+			alert("you are correct!")
+			//solution stuff
+		}
 	},
 
 	whoIsThatPokemonFetch: function(questionData) {
