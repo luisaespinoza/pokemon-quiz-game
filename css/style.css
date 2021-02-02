@@ -2,3 +2,18 @@
 .out-of-view {
     display:none;
 }
+#question-container {
+    display:flex;
+    flex-direction: column;
+    background-color: cyan;
+    height: 400px;
+    width: 800px;
+}
+#answer-container {
+    display:flex;
+    flex-direction: column;
+    background-color: darkmagenta;
+    height: 800px;
+    widows: 800px;
+
+}

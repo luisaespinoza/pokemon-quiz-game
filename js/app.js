@@ -2,6 +2,7 @@
 
 // document.querySelector("#start-button").addEventListener()
 const game = {
+	// Thank you to sindresorhus for this array @ https://github.com/sindresorhus/pokemon
 	pokemonList: [
 		"Bulbasaur",
 		"Ivysaur",
@@ -818,11 +819,13 @@ const game = {
 
 	pokemonTypes: "normal fire water electric grass ice fighting poison ground flying psychic bug rock ghost dragon dark steel fairy".split(" "),
 
-	pokemonDialogueBoxUrl: "https://www.pngfind.com/pngs/m/641-6412603_pokemon-dialog-box-pokemon-text-box-png-transparent.png",
+	// pokemonDialogueBoxUrl: "https://www.pngfind.com/pngs/m/641-6412603_pokemon-dialog-box-pokemon-text-box-png-transparent.png",
 
 	pokemonUrl: null,
 
 	questionData:[],
+
+
 	selectRandomPokemon: function() {
 		 return this.pokemonList[
 			Math.floor(
@@ -831,9 +834,12 @@ const game = {
 		].toLowerCase()
 	},
 
+
+
 	setPokemonUrl: function(pokemon) {
 		console.log(pokemon)
-		this.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+		game.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+		return game.pokemonUrl
 	},
 
 	// fetchRandomPokemon: function(pokemonUrl, index) {
@@ -846,45 +852,49 @@ const game = {
 	// 	})
 	// },
 
-	getQuestionData: function(pokemonUrl,index) {
-		console.log("index",index)
-		fetch(pokemonUrl) 
-			.then( function(responseData) {
-				return responseData.json()
-			})
-			.then( function(jsonData) {
-				game.questionData[index] = jsonData
-				console.log(jsonData)
-				console.log(game.questionData[index])
-				console.log(game.questionData)
-			})
-	},
+	// getQuestionData: function(pokemonUrl,index) {
+	// 	console.log("index",index)
+	// 	fetch(pokemonUrl) 
+	// 		.then( function(responseData) {
+	// 			return responseData.json()
+	// 		})
+	// 		.then( function(jsonData) {
+	// 			game.questionData[index] = jsonData
+	// 			// console.log(jsonData)
+	// 			// console.log(game.questionData[index])
+	// 			// console.log(game.questionData)
+	// 			// return json
+	// 			game.renderWhoQuestion(jsonData)
+	// 		})
+	// },
 
-	initializeData: function(index) {
-		this.selectedPokemon = this.selectRandomPokemon()
-		console.log(this.selectedPokemon)
+	// initializeData: function(index) {
+	// 	this.selectedPokemon = this.selectRandomPokemon()
+	// 	console.log(this.selectedPokemon)
 		
-		this.setPokemonUrl(this.selectedPokemon)
-		console.log(this.pokemonUrl)
+	// 	this.setPokemonUrl(this.selectedPokemon)
+	// 	console.log(this.pokemonUrl)
 		
-		this.getQuestionData(this.pokemonUrl,index)
-		
-		// return this.questionData[0]
-	},
+	// 	this.getQuestionData(this.pokemonUrl,index)
+	// 	return this.questionData[0]
+	// },
 
-	renderWhoQuestion: function(dataObject) {
-		// console.log(dataObject)
+	renderWhoQuestion: function(questionDataArray) {
+		if(typeof(questionDataArray[0]) === "object" && document.querySelector("#question-page")=== null) {
+			console.log(questionDataArray)
 		let questionPage = document.createElement("div")
-		questionPage = document.setAttribute("id","question-page")
+		questionPage.setAttribute("id","question-page")
 
 		let questionContainer = document.createElement("div")
 		questionContainer.setAttribute("id","question-container")
 		
 		let questionBox = document.createElement("img")
 		questionBox.setAttribute("id","question-box")
+		questionBox.setAttribute("href","./images/pokemon-dialog-box-gameboy-style.png")
 		
 		let questionImage = document.createElement("img")
-		questionImg.innerHTML = "href = "
+		questionImage.setAttribute("href",`${questionDataArray[0].sprites.back_default}`)
+		questionImage.setAttribute("width","100%")
 
 		let question = document.createElement("p")
 		question.innerText = "Who's that Pokemon?!"
@@ -894,45 +904,106 @@ const game = {
 		questionContainer.appendChild(questionImage)
 		questionBox.appendChild(question)
 		
-		let answersContainer = document.createElement("div")
-		answersContainer.setAttribute("id","answers-container")
+		document.querySelector("body").appendChild(questionPage)
+		console.log(document.querySelector("body"))
 
-		let answersBox = document.createElement("img")
-		answersBox.setAttribute("id","question-box")
-
-		let answers = document.createElement("ul")
-		answers.setAttribute("id", "answers")
-
-		
-		questionPage.appendChild(answersContainer)
-		answersContainer.appendChild(answersBox)
-		answersContainer.appendChild(answers)
-		for(let i = 0; i <= 3; i++) {
-			let answer = document.createElement("li")
-			answer.setAttribute("id", `answer${i}`)
-			answer.setAttribute("value", i)
-			answer.innerText()
-			answers.appendChild(answer)
+		console.log(questionContainer)
 		}
+		// console.log(questionContainer)
 	},
 
-	whoIsThatPokemon: function(index) {
-		let dataPromise = async() => {
-			this.initializeData(index)
-			return game.questionData[index]
-		}
-		dataPromise()
-		.then (function(questionData) {
-			// console.log(questionData)
-			game.renderWhoQuestion(questionData)
-		})
-	},
+	renderWhoAnswer: function(questionDataArray) {
+		if ( typeof(questionDataArray[0])==="object" && typeof(questionDataArray[1])==="object" && typeof(questionDataArray[2])==="object" && typeof(questionDataArray[3])==="object"){
+			console.log(questionDataArray[3])
+			let answersContainer = document.createElement("div")
+			answersContainer.setAttribute("id","answers-container")
 
-	generateQuestion: function() {
-		// if (Math.random>.50) {
-			for(let i = 0; i <= 3 ; i++){
-				this.whoIsThatPokemon(i)
+			let answersBox = document.createElement("img")
+			answersBox.setAttribute("id","question-box")
+			// answersBox.setAttribute("href",)
+
+			let answers = document.createElement("ul")
+			answers.setAttribute("id", "answers")
+
+			document.querySelector("#question-page").appendChild(answersContainer)
+			answersContainer.appendChild(answersBox)
+			answersContainer.appendChild(answers)
+
+			let answersArray = []
+			for(let i = 0; i <= 3; i++) {
+				let answer = document.createElement("li")
+				let answerText = document.createElement("p")
+				let answerImage = document.createElement("img")
+				answerImage.setAttribute("id", "answer-image")
+				console.log(questionDataArray[i])
+				answerImage.setAttribute("href", `${questionDataArray[i].sprites.front_default}`)
+				answer.setAttribute("id", `answer${i}`)
+				answer.setAttribute("value", i)
+				answerText.innerText= game.questionData[i].name
+				answer.appendChild(answerImage)
+				answer.appendChild(answerText)
+				answers.appendChild(answer)
+				answersArray[i] = answer
 			}
+			let tempArray = []
+			randIndex =  null
+			for(let i = answersArray.length; i >= 1; i--) {
+				randIndex = Math.floor(Math.random()*i)
+				tempArray.push(answersArray[randIndex])
+				answersArray.splice(randIndex,1)
+			}
+			answersArray = [...tempArray]
+			for(answer in answersArray) {
+				answers.appendChild(answersArray[answer])
+			}
+			console.log(answersContainer)
+		}
+		// console.log(answersContainer)
+	},
+
+	whoIsThatPokemonFetch: function(questionData) {
+		for(let i= 0; i< questionData.length;i++) {
+			fetch(this.setPokemonUrl(questionData[i]))
+			.then( function(results) {
+				return results.json()
+			})
+			.then(function(jsonData){
+				console.log(jsonData)
+				game.questionData[i] = jsonData
+				game.renderWhoQuestion(game.questionData)
+				game.renderWhoAnswer(game.questionData)
+				})
+			}
+		},
+
+		// let dataPromise = async(index) => {
+		// 	this.initializeData(index)
+		// 	return game.questionData[index]
+		// }
+		// for (let i= 0; i <=3; i++) {
+		// 	dataPromise(i)
+		// 	.then (function(questionData) {
+		// 		if (i=0) {this.renderWhoQuestion(questionData)}
+		// 	})
+		// }
+		// 
+		// let dataPromise = async() => {
+		// 	this.initializeData()
+		// 	return game.questionData[0]
+		// }
+		// 	dataPromise()
+		// 	.then (function(questionData) {
+		// 		this.renderWhoQuestion(questionData)
+		// 	})
+
+	// },
+	generateWhoQuestion: function() {
+		// if (Math.random>.50) {
+				this.whoIsThatPokemonFetch(this.questionData)
+				// game.whoIsThatPokemonFetch()
+				// while(game.questionData.length<3){
+				// 	console.log("waiting on data...")
+				// }
 		// }
 		// else {
 		// 	for( let i = 0; i <= 4; i++) {
@@ -940,9 +1011,16 @@ const game = {
 		// 	}
 		// }
 	},
+	// generateAnswer: function() {
+
+	// }
 
 	main: function() {
-		this.generateQuestion()
+		for(let i=0; i<=3; i++){
+			this.questionData[i] = this.selectRandomPokemon()
+			console.log(this.questionData[i])
+		}
+		this.generateWhoQuestion()
 	}
 
 
@@ -962,7 +1040,36 @@ const game = {
 // console.log(game.pokemonUrl)
 // console.log(game.pokemonList)
 // console.log(game.pokemonTypes)
+
+
+
+
+
+
+
+
+
+
+	// fetch("https://pokeapi.co/api/v2/pokemon/ditto").then(function(data){
+	// 	return data.json()
+	// }).then(function(jsonData){
+	// 	game.renderWhoQuestion(jsonData)
+	// })
+
+
 game.main()
+
+
+
+
+
+
+
+
+
+
+
+
 
 // let c
 // let a = () => {
