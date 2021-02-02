@@ -920,8 +920,10 @@ const game = {
 			answersContainer.setAttribute("id","answers-container")
 
 			let answersBox = document.createElement("img")
-			answersBox.setAttribute("id","question-box")
-			// answersBox.setAttribute("href",)
+			answersBox.setAttribute("id","answer-box")
+			answersBox.setAttribute("src","./images/pokemon-dialog-box-gameboy-style.png")
+			answersBox.setAttribute("width","400px")
+			answersBox.setAttribute("height","375px")
 
 			let answers = document.createElement("ul")
 			answers.setAttribute("id", "answers")
@@ -940,7 +942,7 @@ const game = {
 				// answerImage.setAttribute("href", `${questionDataArray[i].sprites.front_default}`)
 				answer.setAttribute("id", `answer${i}`)
 				answer.setAttribute("value", i)
-				answer.style.listStyleImage = `url(${questionDataArray[i].sprites.front_default})`
+				answer.style.backgroundImage = `url(${questionDataArray[i].sprites.front_default})`
 				// answerText.innerText= game.questionData[i].name
 				answer.innerText = game.questionData[i].name
 				answer.addEventListener("click",game.checkAnswer)

@@ -1,3 +1,15 @@
+@font-face {
+    font-family: "pokemonGb";
+    src: local("./fonts/PokemonGb-RAeo")
+}
+body {
+    font-family: "pokemonGb";
+    
+}
+
+
+
+
 
 .out-of-view {
     display:none;
@@ -5,22 +17,51 @@
 #question-container {
     display:flex;
     flex-direction: column;
-    background-color: cyan;
-    height: 400px;
+    background-color:greenyellow;
+    height: 300px;
     width: 800px;
 }
 #answer-container {
-    display:flex;
-    flex-direction: column;
+    display:inline;
     color:red;
     background-color: darkmagenta;
     height: 800px;
     widows: 800px;
     margin-left: 300px;
+    position: relative;
+    top:0;
+    left:0;
+}
+ #answers-box{
+    position:relative;
+    top:0;
+    left:0;
+    margin: 0;
+   border: 1px red solid;
 }
 ul {
-    list-style-position: inside;
-    text-align:left;
+    margin-left: 100px;;
+    display: inline;
+    position: absolute;
+    top:310px;
+    left:-100px;
+    border: 1px red solid;
+}
+li {
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 150px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin:20px;
+    padding: 20px 0 20px 150px;
+    /* line-height: 0px; */
+    list-style: none;
+    text-outline: 80px;
+    left: 80px;
+    border: 1px green solid; 
+    vertical-align:text-top;
 }
 /* #answer1 {
     margin-left: ;
@@ -43,4 +84,4 @@ ul {
     display:flex;
     flex-direction:row;
     height:10%;
-} */
+}  */
