@@ -860,29 +860,42 @@ const game = {
 			})
 	},
 
-	initializeData: function() {
+	initializeData: function(index) {
 		this.selectedPokemon = this.selectRandomPokemon()
 		console.log(this.selectedPokemon)
 		
 		this.setPokemonUrl(this.selectedPokemon)
 		console.log(this.pokemonUrl)
 		
-		this.getQuestionData(this.pokemonUrl,0)
+		this.getQuestionData(this.pokemonUrl,index)
 		
 		// return this.questionData[0]
 	},
 
 	renderWhoQuestion: function(dataObject) {
 		// console.log(dataObject)
+		let questionPage = document.createElement("div")
+		questionPage = document.setAttribute("id","question-page")
+
 		let questionContainer = document.createElement("div")
 		questionContainer.setAttribute("id","question-container")
-		questionContainer.setAttribute("class","")
 		
 		let questionBox = document.createElement("img")
 		questionBox.setAttribute("id","question-box")
 		
+		let questionImage = document.createElement("img")
+		questionImg.innerHTML = "href = "
+
 		let question = document.createElement("p")
 		question.innerText = "Who's that Pokemon?!"
+
+		questionPage.appendChild(questionContainer)
+		questionContainer.appendChild(questionBox)
+		questionContainer.appendChild(questionImage)
+		questionBox.appendChild(question)
+		
+		let answersContainer = document.createElement("div")
+		answersContainer.setAttribute("id","answers-container")
 
 		let answersBox = document.createElement("img")
 		answersBox.setAttribute("id","question-box")
@@ -890,18 +903,23 @@ const game = {
 		let answers = document.createElement("ul")
 		answers.setAttribute("id", "answers")
 
+		
+		questionPage.appendChild(answersContainer)
+		answersContainer.appendChild(answersBox)
+		answersContainer.appendChild(answers)
 		for(let i = 0; i <= 3; i++) {
-			let answer = document.createElement("answer")
+			let answer = document.createElement("li")
 			answer.setAttribute("id", `answer${i}`)
 			answer.setAttribute("value", i)
+			answer.innerText()
+			answers.appendChild(answer)
 		}
-
 	},
 
-	whoIsThatPokemon: function() {
+	whoIsThatPokemon: function(index) {
 		let dataPromise = async() => {
-			this.initializeData()
-			return game.questionData[0]
+			this.initializeData(index)
+			return game.questionData[index]
 		}
 		dataPromise()
 		.then (function(questionData) {
@@ -910,20 +928,29 @@ const game = {
 		})
 	},
 
-	// generateQuestion: function() {
-	// 	if (Math.random>50) {
-	// 		this.whoIsThatPokemon()
-	// 	}
-	// 	else {
-	// 		for( let i = 0; i <= 4)
-	// 	}
-	// }
+	generateQuestion: function() {
+		// if (Math.random>.50) {
+			for(let i = 0; i <= 3 ; i++){
+				this.whoIsThatPokemon(i)
+			}
+		// }
+		// else {
+		// 	for( let i = 0; i <= 4; i++) {
 
-	gameIsRunning: true,
-	main: function() {
-		// this.generateQuestion()
-		this.whoIsThatPokemon()
+		// 	}
+		// }
 	},
+
+	main: function() {
+		this.generateQuestion()
+	}
+
+
+	// gameIsRunning: true,
+	// main: function() {
+		// game.generateQuestion()
+		// this.whoIsThatPokemon()
+	// },
 }
 // console.log(document.querySelector("#start-button"))
 
