@@ -4,17 +4,68 @@
 }
 body {
     font-family: "pokemonGb";
-    
+    background-color: black;
+}
+#start-button{
+    background-image: url(./images/pokemon-dialog-box-gameboy-style.png) no-repeat;
 }
 
+#question-page {
+    display: grid;
+    grid-template-areas: 
+    'header header header header header'
+    'main main main main main'
+    'footer footer footer footer footer';
+    grid-gap: 10px;
+    background-color: greenyellow;
+    padding: 10px;
+}
+ #question-container {
+     grid-area: header;
+     display: flex;
+     flex-direction: column;
+     background-color: greenyellow;
+ }
+ #question-box {
+    /* -webkit-filter: grayscale(100%) brightness(0);
+    filter: grayscale(100%) brightness(0);
+    opacity: 0.6; */
+ }
+ #question {
+     
+ }
+ #question-image {
+    -webkit-filter: grayscale(100%) brightness(0);
+    filter: grayscale(100%) brightness(0);
+    opacity: 0.6;
+ }
+ #answer-container {
+     grid-area: main;
 
+ }
+ li {
+    background-repeat: no-repeat;
+    background-position: left center, center center;
+    background-size: 150px,250px;
+    /* display:flex; */
+    /* flex-direction: row; */
+    align-items: center;
+    margin:20px;
+    padding: 40px 0 20px 140px;
+    list-style: none;
+    text-outline: 80px;
+    left: 80px;
+    /* border: 1px green solid;  */
+    vertical-align:text-top;
+    text-align: left;
+}
 
 
 
 .out-of-view {
     display:none;
 }
-#question-container {
+/* #question-container {
     display:flex;
     flex-direction: column;
     background-color:greenyellow;
@@ -56,13 +107,12 @@ li {
     align-items: center;
     margin:20px;
     padding: 20px 0 20px 150px;
-    /* line-height: 0px; */
     list-style: none;
     text-outline: 80px;
     left: 80px;
     border: 1px green solid; 
     vertical-align:text-top;
-}
+} */
 /* #answer1 {
     margin-left: ;
     display:flex;

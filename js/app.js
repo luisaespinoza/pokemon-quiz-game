@@ -890,20 +890,25 @@ const game = {
 		
 		let questionBox = document.createElement("img")
 		questionBox.setAttribute("id","question-box")
-		questionBox.setAttribute("href","./images/pokemon-dialog-box-gameboy-style.png")
+		questionBox.setAttribute("src","./images/pokemon-dialog-box-gameboy-style.png")
+		questionBox.setAttribute("width","400px")
+		questionBox.setAttribute("height","200px")
+
 		
 		let questionImage = document.createElement("img")
-		questionImage.setAttribute("href",`${questionDataArray[0].sprites.back_default}`)
-		questionImage.setAttribute("width","80px")
-		questionImage.setAttribute("height","80px")
+		questionImage.setAttribute("id","question-image")
+		questionImage.setAttribute("src",`${questionDataArray[0].sprites.back_default}`)
+		questionImage.setAttribute("width","150px")
+		questionImage.setAttribute("height","150px")
+		// questionImage.style.backgroundImage = "no repeat"
 
 		let question = document.createElement("p")
 		question.innerText = "Who's that Pokemon?!"
 
 		questionPage.appendChild(questionContainer)
-		questionContainer.appendChild(questionBox)
 		questionContainer.appendChild(questionImage)
-		questionBox.appendChild(question)
+		questionContainer.appendChild(questionBox)
+		questionContainer.appendChild(question)
 		
 		document.querySelector("body").appendChild(questionPage)
 		console.log(document.querySelector("body"))
@@ -919,17 +924,17 @@ const game = {
 			let answersContainer = document.createElement("div")
 			answersContainer.setAttribute("id","answers-container")
 
-			let answersBox = document.createElement("img")
-			answersBox.setAttribute("id","answer-box")
-			answersBox.setAttribute("src","./images/pokemon-dialog-box-gameboy-style.png")
-			answersBox.setAttribute("width","400px")
-			answersBox.setAttribute("height","375px")
+			// let answersBox = document.createElement("img")
+			// answersBox.setAttribute("id","answer-box")
+			// answersBox.setAttribute("src","./images/pokemon-dialog-box-gameboy-style.png")
+			// answersBox.setAttribute("width","400px")
+			// answersBox.setAttribute("height","375px")
 
 			let answers = document.createElement("ul")
 			answers.setAttribute("id", "answers")
 
 			document.querySelector("#question-page").appendChild(answersContainer)
-			answersContainer.appendChild(answersBox)
+			// answersContainer.appendChild(answersBox)
 			answersContainer.appendChild(answers)
 
 			let answersArray = []
@@ -942,7 +947,7 @@ const game = {
 				// answerImage.setAttribute("href", `${questionDataArray[i].sprites.front_default}`)
 				answer.setAttribute("id", `answer${i}`)
 				answer.setAttribute("value", i)
-				answer.style.backgroundImage = `url(${questionDataArray[i].sprites.front_default})`
+				answer.style.backgroundImage = `url(${questionDataArray[i].sprites.front_default}), url(./images/pokemon-dialog-box-gameboy-style.png)`
 				// answerText.innerText= game.questionData[i].name
 				answer.innerText = game.questionData[i].name
 				answer.addEventListener("click",game.checkAnswer)
@@ -971,8 +976,11 @@ const game = {
 		// console.log(event.target)
 		// console.log(event.target.value)
 		if(event.target.value === 0 ) {
+			document.querySelector("body").innerText = ""
 			alert("you are correct!")
 			//solution stuff
+		} else if(event.target.value > 0 && event.target.value <=3) {
+
 		}
 	},
 
@@ -1030,13 +1038,19 @@ const game = {
 
 	// }
 
-	main: function() {
+	start: function() {
+		document.body.innerHTML = ""
 		for(let i=0; i<=3; i++){
-			this.questionData[i] = this.selectRandomPokemon()
-			console.log(this.questionData[i])
+			game.questionData[i] = game.selectRandomPokemon()
+			console.log(game.questionData[i])
 		}
-		this.generateWhoQuestion()
-	}
+		game.generateWhoQuestion()
+	},
+
+	main: function() {
+
+		document.querySelector("#start-button").addEventListener("click", game.start)
+	},
 
 
 	// gameIsRunning: true,
