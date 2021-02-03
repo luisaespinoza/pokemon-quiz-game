@@ -888,11 +888,11 @@ const game = {
 		let questionContainer = document.createElement("div")
 		questionContainer.setAttribute("id","question-container")
 		
-		let questionBox = document.createElement("img")
-		questionBox.setAttribute("id","question-box")
-		questionBox.setAttribute("src","./images/pokemon-dialog-box-gameboy-style.png")
-		questionBox.setAttribute("width","400px")
-		questionBox.setAttribute("height","200px")
+		// let questionBox = document.createElement("img")
+		// questionBox.setAttribute("id","question-box")
+		// questionBox.setAttribute("src","./images/pokemon-dialog-box-gameboy-style.png")
+		// questionBox.setAttribute("width","400px")
+		// questionBox.setAttribute("height","200px")
 
 		
 		let questionImage = document.createElement("img")
@@ -903,11 +903,13 @@ const game = {
 		// questionImage.style.backgroundImage = "no repeat"
 
 		let question = document.createElement("p")
+		question.setAttribute("id","question")
+		question.style.backgroundImage = "url(./images/pokemon-dialog-box-gameboy-style.png)"
 		question.innerText = "Who's that Pokemon?!"
 
 		questionPage.appendChild(questionContainer)
 		questionContainer.appendChild(questionImage)
-		questionContainer.appendChild(questionBox)
+		// questionContainer.appendChild(questionBox)
 		questionContainer.appendChild(question)
 		
 		document.querySelector("body").appendChild(questionPage)
