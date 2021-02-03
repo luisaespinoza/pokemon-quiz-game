@@ -4,11 +4,13 @@
 }
 body {
     font-family: "pokemonGb";
-    background-color: black;
+    background-color:whitesmoke;
+    padding-left: 15%;
 }
-#start-button{
-    background-image: url(./images/pokemon-dialog-box-gameboy-style.png) no-repeat;
-}
+/* #start-button{
+    background: url(./images/pokemon-dialog-box-gameboy-style.png) no-repeat;
+    background-size: 5px;
+} */
 
 #question-page {
     display: grid;
@@ -18,14 +20,18 @@ body {
     'footer footer footer footer footer';
     position: relative;
     grid-gap: 10px;
-    background-color: greenyellow;
+    background-color:whitesmoke;
     padding: 10px;
 }
  #question-container {
      grid-area: header;
      display: flex;
      flex-direction: column;
-     background-color: greenyellow;
+     background-color: whitesmoke;
+ }
+ #question-image {
+     padding-left: 10%;
+     padding-top: 0%;
  }
  #question-box {
      position: relative;
@@ -35,9 +41,16 @@ body {
  }
  #question {
      background-repeat: no-repeat;
-     background-position: center;
-     background: size 400pxx;
-     height: 50px;
+     /* background-position: left 60px bottom 0px ; */
+     background-size: 280px;
+     width: 280px;
+     height: 88px;
+     /* padding: 30px 0 0 50px; */
+     font-size: 16px;
+     text-align: center;
+     display:flex;
+     align-items: center;
+
  }
  #question-image {
     -webkit-filter: grayscale(100%) brightness(0);
@@ -50,22 +63,23 @@ body {
  }
  li {
     background-repeat: no-repeat;
-    background-position: left, center;
+    background-position: left 110px center, center;
     background-size: 125px,250px;
     /* display:flex; */
     /* flex-direction: row; */
     align-items: left;
     height: 60px;
+    font-size: smaller;
 
     margin:20px;
-    padding: 40px 140px 0px 180px;
+    padding: 40px 160px 0px 240px;
     list-style: none;
     /* text-outline: 80px; */
     /* left: 20px; */
     /* border: 1px green solid;  */
     vertical-align:text-top;
     text-align: left;
-    border:1px blue solid;
+    /* border:1px blue solid; */
 }
 
 

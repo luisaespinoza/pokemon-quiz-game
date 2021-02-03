@@ -824,6 +824,9 @@ const game = {
 	pokemonUrl: null,
 
 	questionData:[],
+	nameData:[],
+
+	score: null,
 
 
 	selectRandomPokemon: function() {
@@ -831,14 +834,19 @@ const game = {
 			Math.floor(
 				Math.random()*this.pokemonList.length
 			)
-		].toLowerCase()
+		]
+		// ].toLowerCase()
 	},
 
 
 
 	setPokemonUrl: function(pokemon) {
-		console.log(pokemon)
-		game.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+		// console.log(pokemon)
+		// console.log(game.pokemonList.indexOf(pokemon))
+		let pokemonId = game.pokemonList.indexOf(pokemon) + 1
+		// console.log(pokemonId)
+		game.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+		console.log(game.pokemonUrl)
 		return game.pokemonUrl
 	},
 
@@ -902,7 +910,7 @@ const game = {
 		questionImage.setAttribute("height","150px")
 		// questionImage.style.backgroundImage = "no repeat"
 
-		let question = document.createElement("p")
+		let question = document.createElement("div")
 		question.setAttribute("id","question")
 		question.style.backgroundImage = "url(./images/pokemon-dialog-box-gameboy-style.png)"
 		question.innerText = "Who's that Pokemon?!"
@@ -951,7 +959,7 @@ const game = {
 				answer.setAttribute("value", i)
 				answer.style.backgroundImage = `url(${questionDataArray[i].sprites.front_default}), url(./images/pokemon-dialog-box-gameboy-style.png)`
 				// answerText.innerText= game.questionData[i].name
-				answer.innerText = game.questionData[i].name
+				answer.innerText = game.nameData[i]
 				answer.addEventListener("click",game.checkAnswer)
 				// answer.appendChild(answerImage)
 				// answer.appendChild(answerText)
@@ -978,23 +986,30 @@ const game = {
 		// console.log(event.target)
 		// console.log(event.target.value)
 		if(event.target.value === 0 ) {
-			document.querySelector("body").innerText = ""
 			alert("you are correct!")
+			game.score++
+			game.questions++
+			game.start()
 			//solution stuff
 		} else if(event.target.value > 0 && event.target.value <=3) {
-
+			alert("Wrong!")
+			game.start()
+			game.questions++
 		}
 	},
 
-	whoIsThatPokemonFetch: function(questionData) {
-		for(let i= 0; i< questionData.length;i++) {
-			fetch(this.setPokemonUrl(questionData[i]))
+	whoIsThatPokemonFetch: function(nameData) {
+		for(let i= 0; i< nameData.length;i++) {
+			fetch(this.setPokemonUrl(nameData[i]))
 			.then( function(results) {
+				console.log(nameData[i])
 				return results.json()
 			})
 			.then(function(jsonData){
 				console.log(jsonData)
+				console.log(nameData)
 				game.questionData[i] = jsonData
+				console.log(game.questionData)
 				game.renderWhoQuestion(game.questionData)
 				game.renderWhoAnswer(game.questionData)
 				})
@@ -1024,7 +1039,8 @@ const game = {
 	// },
 	generateWhoQuestion: function() {
 		// if (Math.random>.50) {
-				this.whoIsThatPokemonFetch(this.questionData)
+			console.log(this.nameData)
+				this.whoIsThatPokemonFetch(this.nameData)
 				// game.whoIsThatPokemonFetch()
 				// while(game.questionData.length<3){
 				// 	console.log("waiting on data...")
@@ -1043,8 +1059,8 @@ const game = {
 	start: function() {
 		document.body.innerHTML = ""
 		for(let i=0; i<=3; i++){
-			game.questionData[i] = game.selectRandomPokemon()
-			console.log(game.questionData[i])
+			game.nameData[i] = game.selectRandomPokemon()
+			console.log(game.nameData[i])
 		}
 		game.generateWhoQuestion()
 	},
