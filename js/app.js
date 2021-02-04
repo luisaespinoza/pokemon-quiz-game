@@ -831,30 +831,6 @@ const game = {
 
 	difficulty: null,
 
-
-	// selectRandomPokemon: function() {
-
-	// 	let temp = this.pokemonList[
-	// 		Math.floor(
-	// 			Math.random()*this.pokemonList.length
-	// 		)
-	// 	]
-
-
-
-	// 	//Be very careful here! Recurion imminent
-	// 	console.log(temp)
-	// 	if(game.nameData.indexOf(temp)>=0) {
-	// 		return game.selectRandomPokemon()
-	// 	}
-	// 	//Whew!! That was a close one!!
-
-
-	// 	else {
-	// 		return temp
-	// 	}
-	// },
-
 	selectRandomPokemon: function() {
 
 		let temp =Math.floor(
@@ -864,7 +840,6 @@ const game = {
 
 
 		//Be very careful here! Recurion imminent
-		console.log(temp)
 		if(game.nameData.indexOf(temp)>=0) {
 			return game.selectRandomPokemon()
 		}
@@ -876,27 +851,14 @@ const game = {
 		}
 	},
 
-
-
-	// setPokemonUrl: function(pokemon) {
-
-	// 	let pokemonId = game.pokemonList.indexOf(pokemon) + 1
-
-	// 	game.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
-	// 	console.log(game.pokemonUrl)
-	// 	return game.pokemonUrl
-	// },
-
 	setPokemonUrl: function(integer) {
 
 		game.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${integer}`
-		console.log(game.pokemonUrl)
 		return game.pokemonUrl
 	},
 
 	renderWhoQuestion: function(questionDataArray) {
 		if(typeof(questionDataArray[0]) === "object" && document.querySelector("#question-page")=== null) {
-			console.log(questionDataArray)
 		let questionPage = document.createElement("div")
 		questionPage.setAttribute("id","question-page")
 
@@ -925,15 +887,13 @@ const game = {
 		questionContainer.appendChild(question)
 		
 		document.querySelector("body").appendChild(questionPage)
-		console.log(document.querySelector("body"))
-
-		console.log(questionContainer)
 		}
 	},
 
 	renderWhoAnswer: function(questionDataArray, difficulty) {
 		if ( typeof(questionDataArray[0])==="object" && typeof(questionDataArray[1])==="object" && typeof(questionDataArray[2])==="object" && typeof(questionDataArray[3])==="object"){
-			console.log(questionDataArray[3])
+
+
 			let answersContainer = document.createElement("div")
 			answersContainer.setAttribute("id","answers-container")
 
@@ -947,7 +907,6 @@ const game = {
 			for(let i = 0; i <= 3; i++) {
 				let answer = document.createElement("li")
 
-				console.log(questionDataArray[i])
 				answer.setAttribute("value", i)
 				
 				if(difficulty==="easy"){		
@@ -959,14 +918,11 @@ const game = {
 				}
 
 				let answerText= document.createElement("div")
-				// answerText.innerText = questionDataArray[i].name
+
 				let stringTemp = null
 				stringTemp =questionDataArray[i].name.substring(0,1).toUpperCase()  + questionDataArray[i].name.slice(1) 
-				console.log(stringTemp)
-
+	
 				answerText.innerText = stringTemp
-
-
 				answer.addEventListener("click",game.checkAnswer)
 				answers.appendChild(answer)
 				answer.appendChild(answerText)
@@ -975,31 +931,38 @@ const game = {
 			let tempArray = []
 			randIndex =  null
 			for(let i = answersArray.length; i >= 1; i--) {
+
 				randIndex = Math.floor(Math.random()*i)
 				tempArray.push(answersArray[randIndex])
 				answersArray.splice(randIndex,1)
 			}
 			answersArray = [...tempArray]
 			for(answer in answersArray) {
+
 				answers.appendChild(answersArray[answer])
 			}
-			console.log(answersContainer)
 		}
 	},
 
 	feedbackWindow: function(correct) {
 		let window = document.createElement("div")
+
 		window.style.backgroundImage = `url(${game.questionData[0].sprites.front_default}), url(./images/pokemon-dialog-box-gameboy-style.png)`
 		window.style.zIndex = 5
 		window.setAttribute("id","feedback-window")
+		
+		
 		let windowText = document.createElement("h4")
+
 		windowText.setAttribute("id","feedback-window-text")
 		if(correct) {
 			windowText.innerText = "Right!"
 		} else {
 			windowText.innerText = "Wrong!"
 		}
+
 		windowText.innerText = windowText.innerText + "\n" + `It's ${game.questionData[0].name}!`
+
 		window.appendChild(windowText)
 		window.addEventListener("click",game.start)
 		document.querySelector("#question-page").appendChild(window)
@@ -1008,54 +971,67 @@ const game = {
 	checkAnswer: function(event) {
 		let correct = null
 		if(event.target.value === 0 ) {
+			
 			correct = true
 			game.score++
 			game.questions++
 			game.feedbackWindow(correct)
+		
 		} else if(event.target.value > 0 && event.target.value <=3) {
+			
 			correct = false
 			game.questions++
 			game.feedbackWindow(correct)
+		
 		}
 	},
 
 	whoIsThatPokemonFetch: function(nameData) {
 		for(let i= 0; i< nameData.length;i++) {
+
 			fetch(this.setPokemonUrl(nameData[i]))
+			
 			.then( function(results) {
-				console.log(nameData[i])
 				return results.json()
+			
 			})
 			.then(function(jsonData){
-				console.log(jsonData)
-				console.log(nameData)
+
 				game.questionData[i] = jsonData
-				console.log(game.questionData)
 				game.renderWhoQuestion(game.questionData)
 				game.renderWhoAnswer(game.questionData,game.difficulty)
+
 				})
 			}
 		},
 
 	generateWhoQuestion: function() {
-			console.log(this.nameData)
+
 				this.whoIsThatPokemonFetch(this.nameData)
+	
 	},
 
 
 	start: function() {
+
+
 		if(game.difficulty===null) {
+
 			game.difficulty = document.querySelector("select").value
+
 		}
-		console.log(game.difficulty)
+
 		document.body.innerHTML = ""
 		game.nameData = []
 		game.questionData = []
+
 		for(let i=0; i<=3; i++){
+			
 			game.nameData[i] = game.selectRandomPokemon()
-			console.log(game.nameData[i])
 		}
+
 		game.generateWhoQuestion()
+
 	},
 
 	main: function() {
