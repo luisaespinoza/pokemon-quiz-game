@@ -878,7 +878,7 @@ const game = {
 
 		let questionText = document.createElement("div")
 		questionText.setAttribute("id","question-text")
-		questionText.innerText = "Who's that Pokemon?!"
+		questionText.textContent = "Who's that Pokemon?!"
 
 		questionPage.appendChild(questionContainer)
 		questionContainer.appendChild(questionImage)
@@ -922,7 +922,10 @@ const game = {
 				let stringTemp = null
 				stringTemp =questionDataArray[i].name.substring(0,1).toUpperCase()  + questionDataArray[i].name.slice(1) 
 	
-				answerText.innerText = stringTemp
+				answerText.textContent = stringTemp
+				answerText.addEventListener("click", function(){
+					game.checkAnswer({target:{value:i}})
+				})
 				answer.addEventListener("click",game.checkAnswer)
 				answers.appendChild(answer)
 				answer.appendChild(answerText)
@@ -956,13 +959,13 @@ const game = {
 
 		windowText.setAttribute("id","feedback-window-text")
 		if(correct) {
-			windowText.innerText = "Right!"
+			windowText.textContent = "Right!"
 		} else {
-			windowText.innerText = "Wrong!"
+			windowText.textContent = "Wrong!"
 		}
 
-		windowText.innerText = windowText.innerText + "\n" + `It's ${game.questionData[0].name}!`
-
+		windowText.textContent = windowText.textContent + "\n" + `It's ${game.questionData[0].name}!`
+		windowText.addEventListener("click", game.start)
 		window.appendChild(windowText)
 		window.addEventListener("click",game.start)
 		document.querySelector("#question-page").appendChild(window)
