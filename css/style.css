@@ -2,16 +2,24 @@
     font-family: "pokemonGb";
     src: local("./fonts/PokemonGb-RAeo")
 }
+* {
+    margin:0;
+    padding:0;
+}
 body {
     font-family: "pokemonGb";
-    background-color:whitesmoke;
-    padding-left: 15%;
+    /* background-color:whitesmoke; */
+    /* padding-left: 15%; */
+    height:100vh;
+    width:100vw;
+    background-color: black;
+
 }
 /* #start-button{
     background: url(./images/pokemon-dialog-box-gameboy-style.png) no-repeat;
     background-size: 5px;
 } */
-
+/* 
 #question-page {
     display: grid;
     grid-template-areas: 
@@ -32,20 +40,15 @@ body {
  #question-image {
      padding-left: 10%;
      padding-top: 0%;
- }
- #question-box {
+ } */
+ /* #question-box {
      position: relative;
-    /* -webkit-filter: grayscale(100%) brightness(0);
-    filter: grayscale(100%) brightness(0);
-    opacity: 0.6; */
- }
- #question {
+ } */
+ /* #question {
      background-repeat: no-repeat;
-     /* background-position: left 60px bottom 0px ; */
      background-size: 280px;
      width: 280px;
      height: 88px;
-     /* padding: 30px 0 0 50px; */
      font-size: 16px;
      text-align: center;
      display:flex;
@@ -60,13 +63,11 @@ body {
  #answer-container {
      grid-area: main;
 
- }
- li {
+ } */
+ /* li {
     background-repeat: no-repeat;
     background-position: left 110px center, center;
     background-size: 125px,250px;
-    /* display:flex; */
-    /* flex-direction: row; */
     align-items: left;
     height: 60px;
     font-size: smaller;
@@ -74,19 +75,317 @@ body {
     margin:20px;
     padding: 40px 160px 0px 240px;
     list-style: none;
+    vertical-align:text-top;
+    text-align: left;
+} */
+/* 
+#feedback-window {
+    background-size: 500px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    text-align: center;
+    align-items:center;
+    justify-content: center;
+
+    display: flex;
+    position: absolute;
+    left: 0;
+    height: 150px;
+    width: 500px;
+    top:50%;
+    left:25%;
+
+
+} */
+
+/* #feedback-window-text {
+
+} */
+.start-screen {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40%;
+}
+#start-button {
+    font-family: pokemonGb;
+    width:240px;
+    height:80px;
+    background-image: url(../images/pokemon-dialog-box-gameboy-style.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    back
+
+}
+#diffulty {
+    font-family: pokemonGb;
+}
+#question-page {
+    display: grid;
+    grid-template-areas: 
+    'header'
+    'main'
+    /* 'footer'; */;
+    height:100%;
+    width:100%;
+
+    position: relative;
+    grid-gap: 10px;
+    background-color:whitesmoke;
+    padding: 10px;
+}
+ #question-container {
+     grid-area: header;
+     display: flex;
+     flex-direction: column;
+     background-color: whitesmoke;
+ }
+ #question-image {
+     height:50%;
+     widows: 50%;
+     padding-left: 10%;
+     padding-top: 0%;
+ }
+ #question-box {
+     position: relative;
+    /* -webkit-filter: grayscale(100%) brightness(0);
+    filter: grayscale(100%) brightness(0);
+    opacity: 0.6; */
+ }
+ #question {
+     background-repeat: no-repeat;
+     /* background-position: left 60px bottom 0px ; */
+     background-size: contain;
+     width: 300px;
+     height: 100px;
+     /* padding: 30px 0 0 50px; */
+     font-size: 16px;
+     text-align:left;
+     padding-left: 5%;
+     display:flex;
+     align-items: center;
+     left: 25%;
+
+ }
+ #question-image {
+    -webkit-filter: grayscale(100%) brightness(0);
+    filter: grayscale(100%) brightness(0);
+    opacity: 0.6;
+ }
+ #answer-container {
+     /* display:flex; */
+     /* grid-area: main; */
+     /* align-items: left; */
+     /* position: relative; */
+     /* left:5%; */
+ }
+ .answer-easy{
+    background-repeat: no-repeat;
+    background-position: left 5% center, left 50% center;
+    background-size: 25%, 100%;
+    /* display:flex; */
+    /* flex-direction: row; */
+    /* vertical-align: center; */
+    align-items: left;
+    /* height: 120px; */
+    font-size: smaller;
+    height:12vh;
+
+
+
+    /* margin:20px; */
+    /* padding: 10px 160px 0px 240px; */
+    list-style: none;
     /* text-outline: 80px; */
     /* left: 20px; */
     /* border: 1px green solid;  */
-    vertical-align:text-top;
-    text-align: left;
+    text-align: center;
+    justify-content: center;
+    display:flex;
+    flex-direction:column;
+    padding-right: 15%;
+    padding-left:15%;
+    margin: 5% 25% 5% 25%;
     /* border:1px blue solid; */
+    width:25%;
+}
+
+.answer-hard{
+    background-repeat: no-repeat;
+    background-position:left 50% center;
+    background-size: 90%;
+    /* display:flex; */
+    /* flex-direction: row; */
+    /* vertical-align: center; */
+    align-items: left;
+    /* height: 120px; */
+    font-size: smaller;
+    height:12vh;
+
+
+
+    /* margin:20px; */
+    /* padding: 10px 160px 0px 240px; */
+    list-style: none;
+    /* text-outline: 80px; */
+    /* left: 20px; */
+    /* border: 1px green solid;  */
+    text-align: center;
+    justify-content: center;
+    display:flex;
+    flex-direction:column;
+    padding-right: 15%;
+    padding-left:15%;
+    margin: 5% 25% 5% 25%;
+    /* border:1px blue solid; */
+    width:25%;
 }
 
 
+#feedback-window {
+    /* grid-column: 1fr 2fr; */
+    /* grid-row: 2fr 5fr; */
+    background-size:25%, 100%;
+    background-repeat: no-repeat;
 
-.out-of-view {
+    text-align: center;
+    align-items:center;
+    justify-content: center;
+    justify-self: start;
+    font-size: smaller;
+    display: flex;
+    /* align-items: top; */
+    position: absolute;
+    height: 120px;
+    width: 350px;
+    top:50%;
+    left:5%;
+
+
+}
+
+
+@media only screen and (min-width: 768px) {
+
+     #question-image {
+         height:100%;
+         widows: 100%;
+         padding-left: 10%;
+         padding-top: 0%;
+     }
+     #question {
+         background-repeat: no-repeat;
+         /* background-position: left 60px bottom 0px ; */
+         background-size: contain;
+         width: 400px;
+         height: 180px;
+         /* padding: 30px 0 0 50px; */
+         font-size: 16px;
+         text-align:left;
+         padding-left: 5%;
+         display:flex;
+         align-items: center;
+         left: 25%;
+
+     }
+     .answer-easy {
+        background-repeat: no-repeat;
+        background-position: left 5% center, left 50% center;
+        background-size: 25%,contain;
+        /* display:flex; */
+        /* flex-direction: row; */
+        /* vertical-align: center; */
+        align-items: left;
+        /* height: 120px; */
+        font-size: smaller;
+        height:12vh;
+
+
+    
+        /* margin:20px; */
+        /* padding: 10px 160px 0px 240px; */
+        list-style: none;
+        /* text-outline: 80px; */
+        /* left: 20px; */
+        /* border: 1px green solid;  */
+        text-align: center;
+        justify-content: center;
+        display:flex;
+        flex-direction:column;
+        padding-right: 15%;
+        padding-left:15%;
+        margin: 5% 25% 5% 25%;
+        /* border:1px blue solid; */
+        width:25%;
+    }
+    .answer-hard {
+        background-repeat: no-repeat;
+        background-position: left 50% center;
+        background-size: contain;
+        /* display:flex; */
+        /* flex-direction: row; */
+        /* vertical-align: center; */
+        align-items: left;
+        /* height: 120px; */
+        font-size: smaller;
+        height:12vh;
+
+
+    
+        /* margin:20px; */
+        /* padding: 10px 160px 0px 240px; */
+        list-style: none;
+        /* text-outline: 80px; */
+        /* left: 20px; */
+        /* border: 1px green solid;  */
+        text-align: center;
+        justify-content: center;
+        display:flex;
+        flex-direction:column;
+        padding-right: 15%;
+        padding-left:15%;
+        margin: 5% 25% 5% 25%;
+        /* border:1px blue solid; */
+        width:25%;
+    }
+
+    
+    #feedback-window {
+        /* grid-column: 1fr 2fr; */
+        /* grid-row: 2fr 5fr; */
+        background-size:25%, contain;
+        background-repeat: no-repeat;
+
+        text-align: center;
+        align-items:center;
+        justify-content: center;
+        justify-self: start;
+        font-size: smaller;
+        display: flex;
+        /* align-items: top; */
+        position: absolute;
+        height: 200px;
+        width: 600px;
+        top:50%;
+        left:5%;
+    
+    
+    }
+    
+}
+@media only screen and (min-width: 1280px) {
+    .answer-easy{
+        background-position: left 20% center, center;
+        background-size: 20%, contain;
+    }
+    .answer-hard{
+        background-position: center;
+        background-size: contain;
+    }
+}
+/* .out-of-view {
     display:none;
-}
+} */
 /* #question-container {
     display:flex;
     flex-direction: column;

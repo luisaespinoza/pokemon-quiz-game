@@ -827,65 +827,72 @@ const game = {
 	nameData:[],
 
 	score: null,
+	questions: null,
 
+	difficulty: null,
+
+
+	// selectRandomPokemon: function() {
+
+	// 	let temp = this.pokemonList[
+	// 		Math.floor(
+	// 			Math.random()*this.pokemonList.length
+	// 		)
+	// 	]
+
+
+
+	// 	//Be very careful here! Recurion imminent
+	// 	console.log(temp)
+	// 	if(game.nameData.indexOf(temp)>=0) {
+	// 		return game.selectRandomPokemon()
+	// 	}
+	// 	//Whew!! That was a close one!!
+
+
+	// 	else {
+	// 		return temp
+	// 	}
+	// },
 
 	selectRandomPokemon: function() {
-		 return this.pokemonList[
-			Math.floor(
-				Math.random()*this.pokemonList.length
+
+		let temp =Math.floor(
+			Math.random()*this.pokemonList.length
 			)
-		]
-		// ].toLowerCase()
+
+
+
+		//Be very careful here! Recurion imminent
+		console.log(temp)
+		if(game.nameData.indexOf(temp)>=0) {
+			return game.selectRandomPokemon()
+		}
+		//Whew!! That was a close one!!
+
+
+		else {
+			return temp
+		}
 	},
 
 
 
-	setPokemonUrl: function(pokemon) {
-		// console.log(pokemon)
-		// console.log(game.pokemonList.indexOf(pokemon))
-		let pokemonId = game.pokemonList.indexOf(pokemon) + 1
-		// console.log(pokemonId)
-		game.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+	// setPokemonUrl: function(pokemon) {
+
+	// 	let pokemonId = game.pokemonList.indexOf(pokemon) + 1
+
+	// 	game.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+	// 	console.log(game.pokemonUrl)
+	// 	return game.pokemonUrl
+	// },
+
+	setPokemonUrl: function(integer) {
+
+		game.pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${integer}`
 		console.log(game.pokemonUrl)
 		return game.pokemonUrl
 	},
-
-	// fetchRandomPokemon: function(pokemonUrl, index) {
-	// 	fetch(pokemonUrl) 
-	// 	.then( function(responseData) {
-	// 		return responseData.json()
-	// 	})
-	// 	.then( function(jsonData) {
-	// 		questionData[index] = jsonData.value
-	// 	})
-	// },
-
-	// getQuestionData: function(pokemonUrl,index) {
-	// 	console.log("index",index)
-	// 	fetch(pokemonUrl) 
-	// 		.then( function(responseData) {
-	// 			return responseData.json()
-	// 		})
-	// 		.then( function(jsonData) {
-	// 			game.questionData[index] = jsonData
-	// 			// console.log(jsonData)
-	// 			// console.log(game.questionData[index])
-	// 			// console.log(game.questionData)
-	// 			// return json
-	// 			game.renderWhoQuestion(jsonData)
-	// 		})
-	// },
-
-	// initializeData: function(index) {
-	// 	this.selectedPokemon = this.selectRandomPokemon()
-	// 	console.log(this.selectedPokemon)
-		
-	// 	this.setPokemonUrl(this.selectedPokemon)
-	// 	console.log(this.pokemonUrl)
-		
-	// 	this.getQuestionData(this.pokemonUrl,index)
-	// 	return this.questionData[0]
-	// },
 
 	renderWhoQuestion: function(questionDataArray) {
 		if(typeof(questionDataArray[0]) === "object" && document.querySelector("#question-page")=== null) {
@@ -896,28 +903,25 @@ const game = {
 		let questionContainer = document.createElement("div")
 		questionContainer.setAttribute("id","question-container")
 		
-		// let questionBox = document.createElement("img")
-		// questionBox.setAttribute("id","question-box")
-		// questionBox.setAttribute("src","./images/pokemon-dialog-box-gameboy-style.png")
-		// questionBox.setAttribute("width","400px")
-		// questionBox.setAttribute("height","200px")
-
 		
 		let questionImage = document.createElement("img")
 		questionImage.setAttribute("id","question-image")
-		questionImage.setAttribute("src",`${questionDataArray[0].sprites.back_default}`)
+		questionImage.setAttribute("src",`${questionDataArray[0].sprites.front_default}`)
 		questionImage.setAttribute("width","150px")
 		questionImage.setAttribute("height","150px")
-		// questionImage.style.backgroundImage = "no repeat"
 
 		let question = document.createElement("div")
 		question.setAttribute("id","question")
 		question.style.backgroundImage = "url(./images/pokemon-dialog-box-gameboy-style.png)"
-		question.innerText = "Who's that Pokemon?!"
+
+		let questionText = document.createElement("div")
+		questionText.setAttribute("id","question-text")
+		questionText.innerText = "Who's that Pokemon?!"
 
 		questionPage.appendChild(questionContainer)
 		questionContainer.appendChild(questionImage)
-		// questionContainer.appendChild(questionBox)
+		question.appendChild(questionText)
+
 		questionContainer.appendChild(question)
 		
 		document.querySelector("body").appendChild(questionPage)
@@ -925,45 +929,47 @@ const game = {
 
 		console.log(questionContainer)
 		}
-		// console.log(questionContainer)
 	},
 
-	renderWhoAnswer: function(questionDataArray) {
+	renderWhoAnswer: function(questionDataArray, difficulty) {
 		if ( typeof(questionDataArray[0])==="object" && typeof(questionDataArray[1])==="object" && typeof(questionDataArray[2])==="object" && typeof(questionDataArray[3])==="object"){
 			console.log(questionDataArray[3])
 			let answersContainer = document.createElement("div")
 			answersContainer.setAttribute("id","answers-container")
 
-			// let answersBox = document.createElement("img")
-			// answersBox.setAttribute("id","answer-box")
-			// answersBox.setAttribute("src","./images/pokemon-dialog-box-gameboy-style.png")
-			// answersBox.setAttribute("width","400px")
-			// answersBox.setAttribute("height","375px")
-
 			let answers = document.createElement("ul")
 			answers.setAttribute("id", "answers")
 
 			document.querySelector("#question-page").appendChild(answersContainer)
-			// answersContainer.appendChild(answersBox)
 			answersContainer.appendChild(answers)
 
 			let answersArray = []
 			for(let i = 0; i <= 3; i++) {
 				let answer = document.createElement("li")
-				// let answerText = document.createElement("p")
-				// let answerImage = document.createElement("img")
-				// answerImage.setAttribute("id", "answer-image")
+
 				console.log(questionDataArray[i])
-				// answerImage.setAttribute("href", `${questionDataArray[i].sprites.front_default}`)
-				answer.setAttribute("id", `answer${i}`)
 				answer.setAttribute("value", i)
-				answer.style.backgroundImage = `url(${questionDataArray[i].sprites.front_default}), url(./images/pokemon-dialog-box-gameboy-style.png)`
-				// answerText.innerText= game.questionData[i].name
-				answer.innerText = game.nameData[i]
+				
+				if(difficulty==="easy"){		
+					answer.setAttribute("class", `answer-easy`)		
+					answer.style.backgroundImage = `url(${questionDataArray[i].sprites.front_default}), url(./images/pokemon-dialog-box-gameboy-style.png)`}
+				else if(difficulty === "hard") {
+					answer.setAttribute("class", `answer-hard`)
+					answer.style.backgroundImage = `url(./images/pokemon-dialog-box-gameboy-style.png)`
+				}
+
+				let answerText= document.createElement("div")
+				// answerText.innerText = questionDataArray[i].name
+				let stringTemp = null
+				stringTemp =questionDataArray[i].name.substring(0,1).toUpperCase()  + questionDataArray[i].name.slice(1) 
+				console.log(stringTemp)
+
+				answerText.innerText = stringTemp
+
+
 				answer.addEventListener("click",game.checkAnswer)
-				// answer.appendChild(answerImage)
-				// answer.appendChild(answerText)
 				answers.appendChild(answer)
+				answer.appendChild(answerText)
 				answersArray[i] = answer
 			}
 			let tempArray = []
@@ -979,22 +985,37 @@ const game = {
 			}
 			console.log(answersContainer)
 		}
-		// console.log(answersContainer)
+	},
+
+	feedbackWindow: function(correct) {
+		let window = document.createElement("div")
+		window.style.backgroundImage = `url(${game.questionData[0].sprites.front_default}), url(./images/pokemon-dialog-box-gameboy-style.png)`
+		window.style.zIndex = 5
+		window.setAttribute("id","feedback-window")
+		let windowText = document.createElement("h4")
+		windowText.setAttribute("id","feedback-window-text")
+		if(correct) {
+			windowText.innerText = "Right!"
+		} else {
+			windowText.innerText = "Wrong!"
+		}
+		windowText.innerText = windowText.innerText + "\n" + `It's ${game.questionData[0].name}!`
+		window.appendChild(windowText)
+		window.addEventListener("click",game.start)
+		document.querySelector("#question-page").appendChild(window)
 	},
 
 	checkAnswer: function(event) {
-		// console.log(event.target)
-		// console.log(event.target.value)
+		let correct = null
 		if(event.target.value === 0 ) {
-			alert("you are correct!")
+			correct = true
 			game.score++
 			game.questions++
-			game.start()
-			//solution stuff
+			game.feedbackWindow(correct)
 		} else if(event.target.value > 0 && event.target.value <=3) {
-			alert("Wrong!")
-			game.start()
+			correct = false
 			game.questions++
+			game.feedbackWindow(correct)
 		}
 	},
 
@@ -1011,53 +1032,25 @@ const game = {
 				game.questionData[i] = jsonData
 				console.log(game.questionData)
 				game.renderWhoQuestion(game.questionData)
-				game.renderWhoAnswer(game.questionData)
+				game.renderWhoAnswer(game.questionData,game.difficulty)
 				})
 			}
 		},
 
-		// let dataPromise = async(index) => {
-		// 	this.initializeData(index)
-		// 	return game.questionData[index]
-		// }
-		// for (let i= 0; i <=3; i++) {
-		// 	dataPromise(i)
-		// 	.then (function(questionData) {
-		// 		if (i=0) {this.renderWhoQuestion(questionData)}
-		// 	})
-		// }
-		// 
-		// let dataPromise = async() => {
-		// 	this.initializeData()
-		// 	return game.questionData[0]
-		// }
-		// 	dataPromise()
-		// 	.then (function(questionData) {
-		// 		this.renderWhoQuestion(questionData)
-		// 	})
-
-	// },
 	generateWhoQuestion: function() {
-		// if (Math.random>.50) {
 			console.log(this.nameData)
 				this.whoIsThatPokemonFetch(this.nameData)
-				// game.whoIsThatPokemonFetch()
-				// while(game.questionData.length<3){
-				// 	console.log("waiting on data...")
-				// }
-		// }
-		// else {
-		// 	for( let i = 0; i <= 4; i++) {
-
-		// 	}
-		// }
 	},
-	// generateAnswer: function() {
 
-	// }
 
 	start: function() {
+		if(game.difficulty===null) {
+			game.difficulty = document.querySelector("select").value
+		}
+		console.log(game.difficulty)
 		document.body.innerHTML = ""
+		game.nameData = []
+		game.questionData = []
 		for(let i=0; i<=3; i++){
 			game.nameData[i] = game.selectRandomPokemon()
 			console.log(game.nameData[i])
@@ -1070,68 +1063,6 @@ const game = {
 		document.querySelector("#start-button").addEventListener("click", game.start)
 	},
 
-
-	// gameIsRunning: true,
-	// main: function() {
-		// game.generateQuestion()
-		// this.whoIsThatPokemon()
-	// },
 }
-// console.log(document.querySelector("#start-button"))
-
-// game.selectedPokemon = game.selectRandomPokemon()
-// game.setPokemonUrl(
-// 	game.selectedPokemon
-// )
-// console.log(game.pokemonDialogueBoxUrl)
-// console.log(game.pokemonUrl)
-// console.log(game.pokemonList)
-// console.log(game.pokemonTypes)
-
-
-
-
-
-
-
-
-
-
-	// fetch("https://pokeapi.co/api/v2/pokemon/ditto").then(function(data){
-	// 	return data.json()
-	// }).then(function(jsonData){
-	// 	game.renderWhoQuestion(jsonData)
-	// })
-
 
 game.main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-// let c
-// let a = () => {
-// 	fetch(`https://pokeapi.co/api/v2/pokemon/ditto`) 
-// 			.then( function(responseData) {
-// 				return responseData.json()
-// 			})
-// 			.then( function(jsonData) {
-// 				c = jsonData.value
-// 			})
-// }
-// let b = (d) => {
-// 	console.log(d)
-
-// }
-// a()  // undefined
-// b(c) //undefined
-// b(a())  //undefined
