@@ -99,7 +99,7 @@ body {
 .answer-hard{
     background-repeat: no-repeat;
     background-position:left 50% center;
-    background-size: 90%;
+    background-size: contain;
     font-size: smaller;
     height:12vh;
     list-style: none;
